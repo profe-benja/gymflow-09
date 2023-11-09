@@ -12,8 +12,12 @@ urlpatterns = [
 
   # pagina cliente
   path('home', views.home, name='home'),
+  path('home/maquina/<id>', views.home_maquina, name='home_maquina'),
+
   path('home/categoria/<url>', views.home_categoria, name='home_categoria'),
   path('home/libro/<codigo>', views.home_libro, name='home_libro'),
+  path('home/historial', views.home_historial, name='home_historial'),
+  path('home/llamada', views.home_llamada, name='home_llamada'),
 
   # pagina administrador
   path('administrador', viewsAdmin.index, name='admin_index'),

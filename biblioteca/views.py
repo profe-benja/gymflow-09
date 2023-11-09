@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Libro, Pedido, UserProfile, Categoria
+from .models import Libro, Pedido, UserProfile, Categoria, Maquina
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .decorators import role_required
@@ -81,15 +81,34 @@ def home(request):
     perfil = request.session.get('perfil')
     libros = Libro.objects.all()
     categorias = Categoria.objects.all()
+    maquinas = Maquina.objects.all()
 
     context = {
         'perfil' : perfil,
         'libros' : libros,
         'categorias': categorias,
-        'categoria': None
+        'categoria': None,
+        'maquinas': maquinas
     }
 
     return render(request, 'home.html', context)
+
+def home_maquina(request, id):
+    perfil = request.session.get('perfil')
+    maquina = Maquina.objects.get(id=id)
+
+    if request.method == 'POST':
+      profile = UserProfile.objects.get(user=request.user)
+      profile.maquinas.add(maquina)
+      messages.success(request, 'Maquina agregada correctamente.')
+
+    context = {
+        'perfil' : perfil,
+        'maquina' : maquina,
+    }
+
+    return render(request, 'maquina.html', context)
+
 
 def home_categoria(request, url):
     perfil = request.session.get('perfil')
@@ -118,6 +137,29 @@ def home_libro(request, codigo):
 
     return render(request, 'libro.html', context)
 
+def home_historial(request):
+    perfil = request.session.get('perfil')
+    profile = UserProfile.objects.get(user=request.user)
+    maquinas = profile.maquinas.all()
+
+    context = {
+        'perfil' : perfil,
+        'maquinas' : maquinas,
+    }
+
+    return render(request, 'historial.html', context)
+
+
+def home_llamada(request):
+    perfil = request.session.get('perfil')
+    profile = UserProfile.objects.get(user=request.user)
+
+    context = {
+        'perfil' : perfil,
+        'usuario': profile.user
+    }
+
+    return render(request, 'llamada.html', context)
 
 
 # USUARIO

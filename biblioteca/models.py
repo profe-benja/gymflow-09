@@ -2,9 +2,18 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.conf import settings
 
+
+
+class Maquina(models.Model):
+    nombre = models.CharField(max_length=100)
+    tipo = models.CharField(max_length=100)
+    descripcion = models.TextField()
+    imagen = models.ImageField(upload_to='maquina/', null=True, blank=True)
+
 class UserProfile(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
     role = models.CharField(max_length=20, choices=settings.ROLES)
+    maquinas = models.ManyToManyField(Maquina)
 
     def __str__(self):
         return self.user.username + ' - ' + self.role

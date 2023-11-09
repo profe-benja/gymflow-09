@@ -1,5 +1,5 @@
 from django.shortcuts import redirect
-from ..models import Libro, Pedido, UserProfile, Categoria
+from ..models import Libro, Pedido, UserProfile, Categoria, Maquina
 from django.contrib.auth.models import User
 
 # RANDOM DATA
@@ -30,6 +30,7 @@ def data(request):
     Categoria.objects.all().delete()
     Libro.objects.all().delete()
     Pedido.objects.all().delete()
+    Maquina.objects.all().delete()
 
     # crea 2 usuarios
     user = get_user_model().objects.create_user(
@@ -122,6 +123,41 @@ def data(request):
             libro=libro_pedido,
             cliente=cliente_pedido,
             estado=estado_pedido,
+        )
+
+
+
+    maquinas_ejercicio = [
+      {"nombre": "Máquina de remo", "tipo": "Cardio", "descripcion": "Esta máquina es ideal para trabajar el sistema cardiovascular y fortalecer los músculos de la espalda.", "imagen": "1.jpeg"},
+      {"nombre": "Máquina de pesas", "tipo": "Fortalecimiento", "descripcion": "Esta máquina es perfecta para trabajar los músculos de todo el cuerpo y aumentar la fuerza.", "imagen": "2.jpeg"},
+      {"nombre": "Bicicleta estática", "tipo": "Cardio", "descripcion": "Esta máquina es excelente para quemar calorías y mejorar la resistencia cardiovascular.", "imagen": "3.jpeg"},
+      {"nombre": "Máquina de abdominales", "tipo": "Fortalecimiento", "descripcion": "Esta máquina es ideal para trabajar los músculos abdominales y mejorar la postura.", "imagen": "4.jpeg"},
+      {"nombre": "Máquina de estiramientos", "tipo": "Flexibilidad", "descripcion": "Esta máquina es perfecta para mejorar la flexibilidad y prevenir lesiones musculares.", "imagen": "5.jpeg"},
+      {"nombre": "Máquina de escaleras", "tipo": "Cardio", "descripcion": "Esta máquina es ideal para quemar calorías y mejorar la resistencia cardiovascular.", "imagen": "6.jpeg"},
+      {"nombre": "Máquina de press de piernas", "tipo": "Fortalecimiento", "descripcion": "Esta máquina es perfecta para trabajar los músculos de las piernas y aumentar la fuerza.", "imagen": "7.jpeg"},
+      {"nombre": "Máquina de step", "tipo": "Cardio", "descripcion": "Esta máquina es excelente para quemar calorías y mejorar la resistencia cardiovascular.", "imagen": "8.jpeg"},
+      {"nombre": "Máquina de extensiones de piernas", "tipo": "Fortalecimiento", "descripcion": "Esta máquina es ideal para trabajar los músculos de las piernas y mejorar la fuerza.", "imagen": "9.jpeg"},
+      {"nombre": "Máquina de remo sentado", "tipo": "Cardio", "descripcion": "Esta máquina es ideal para trabajar el sistema cardiovascular y fortalecer los músculos de la espalda.", "imagen": "10.jpeg"},
+      {"nombre": "Máquina de curl de bíceps", "tipo": "Fortalecimiento", "descripcion": "Esta máquina es perfecta para trabajar los músculos de los brazos y aumentar la fuerza.", "imagen": "11.jpeg"},
+      {"nombre": "Máquina de elíptica", "tipo": "Cardio", "descripcion": "Esta máquina es excelente para quemar calorías y mejorar la resistencia cardiovascular.", "imagen": "12.jpeg"},
+      {"nombre": "Máquina de press de banca", "tipo": "Fortalecimiento", "descripcion": "Esta máquina es ideal para trabajar los músculos del pecho y mejorar la fuerza.", "imagen": "13.jpeg"},
+      {"nombre": "Máquina de escalador", "tipo": "Cardio", "descripcion": "Esta máquina es ideal para quemar calorías y mejorar la resistencia cardiovascular.", "imagen": "14.jpeg"},
+      {"nombre": "Máquina de curl de piernas", "tipo": "Fortalecimiento", "descripcion": "Esta máquina es perfecta para trabajar los músculos de las piernas y aumentar la fuerza.", "imagen": "15.jpeg"},
+      {"nombre": "Máquina de spinning", "tipo": "Cardio", "descripcion": "Esta máquina es excelente para quemar calorías y mejorar la resistencia cardiovascular.", "imagen": "16.jpeg"},
+      {"nombre": "Máquina de pull-down", "tipo": "Fortalecimiento", "descripcion": "Esta máquina es ideal para trabajar los músculos de la espalda y mejorar la fuerza.", "imagen": "17.jpeg"},
+      {"nombre": "Máquina de cinta de correr", "tipo": "Cardio", "descripcion": "Esta máquina es ideal para quemar calorías y mejorar la resistencia cardiovascular.", "imagen": "18.jpeg"},
+      {"nombre": "Máquina de press militar", "tipo": "Fortalecimiento", "descripcion": "Esta máquina es perfecta para trabajar los músculos de los hombros y aumentar la fuerza.", "imagen": "19.jpeg"},
+      {"nombre": "Máquina de step-up", "tipo": "Cardio", "descripcion": "Esta máquina es excelente para quemar calorías y mejorar la resistencia cardiovascular.", "imagen": "20.jpeg"}
+    ]
+
+    for maquina in maquinas_ejercicio:
+      numero_aleatorio = random.randint(1, 6)
+
+      Maquina.objects.create(
+          nombre=maquina['nombre'],
+          tipo=maquina['tipo'],
+          descripcion=maquina['descripcion'],
+          imagen= 'img/maquina/' + str(numero_aleatorio) + '.jpeg',
         )
 
     return redirect('index')

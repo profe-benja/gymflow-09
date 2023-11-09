@@ -110,7 +110,6 @@
       <p class="lead">Ejercicios en casa y a tu alrdedor</p>
 
       <a href="{% url 'home_historial' %}" class="btn btn-lg btn-dark">IR AL HISTORIAL</a>
-      <a href="{% url 'home_llamada' %}" class="btn btn-lg btn-dark">LLAMADA</a>
     </header>
 
     <div class="album py-5 bg-body-tertiary">
@@ -130,7 +129,7 @@
                 </div>
                 <div class="d-grid p-2">
                   {% comment %} <a href="{% url 'ver_libro' %}" class="btn btn-sm btn-outline-secondary">Ver libro</a> {% endcomment %}
-                  <a href="{% url 'home_maquina' maquina.id %}" class="btn btn-sm btn-outline-secondary">VER</a>
+                  {% comment %} <a href="{% url 'home_maquina' maquina.id %}" class="btn btn-sm btn-outline-secondary">VER</a> {% endcomment %}
                 </div>
               </div>
             </div>
